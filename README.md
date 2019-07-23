@@ -1,2 +1,2 @@
 # Weather-App
-My first project. I use Weather API, Fetch API, promises, geolocation and temp. conversion.
+My first project. I used Weather API, Fetch API, promises, geolocation, temp. conversion and Date object.
