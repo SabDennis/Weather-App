@@ -1,12 +1,13 @@
-// Variables
+// Global variables (date, notification, temp. value, weather description, user location and kelvin)
 const dateElement = document.querySelector('.date-element');
 const notificationElement = document.querySelector('.notification');
 const temperatureValueElement = document.querySelector('.temp-value p');
 const weatherDescriptionElement = document.querySelector('.description p');
 const userLocationElement = document.querySelector('.location p');
+// Use this variable in conversion
 const kelvin = 273.15;
 
-// Weather object
+// Weather object where we store data from Weather API
 const weatherObj = {
     celsius: true
 };
@@ -17,11 +18,9 @@ const apiKey = '16e8195cb83e5e7fdd40ff8c909328b7';
 // Date
 const currentDate = new Date();
 const options = { month: "long", weekday: "long", day: "numeric" };
-
-// Display date 
 dateElement.innerHTML = currentDate.toLocaleDateString('en-US', options);
 
-// Checking geolocation 
+// Geolocation  
 if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
@@ -40,7 +39,6 @@ function getWeather(lat, lon) {
     fetch(api_url)
         .then(response => {
             let data = response.json();
-            console.log(data);
             return data;
         })
         .then(data => {
@@ -56,14 +54,6 @@ function getWeather(lat, lon) {
         .catch(error => console.error(error));
 };
 
-// Display weather 
-function dislayWeather() {
-    temperatureValueElement.innerHTML = `${weatherObj.temperature}°<span>C</span>`;
-    weatherDescriptionElement.innerHTML = `${weatherObj.description}`;
-    userLocationElement.innerHTML = `${weatherObj.city}, ${weatherObj.country}`;
-    document.querySelector('.icon img').src = `http://openweathermap.org/img/wn/${weatherObj.icon}@2x.png`;
-};
-
 // Convert Celsius to Fahrenheit
 temperatureValueElement.addEventListener('click', () => {
     if (weatherObj.temperature === undefined) return false;
@@ -77,4 +67,14 @@ temperatureValueElement.addEventListener('click', () => {
     };
 });
 
-console.log(weatherObj);
+// Display weather 
+function dislayWeather() {
+    temperatureValueElement.innerHTML = `${weatherObj.temperature}°<span>C</span>`;
+    weatherDescriptionElement.innerHTML = `${weatherObj.description}`;
+    userLocationElement.innerHTML = `${weatherObj.city}, ${weatherObj.country}`;
+    document.querySelector('.icon img').src = `http://openweathermap.org/img/wn/${weatherObj.icon}@2x.png`;
+};
+
+
+
+
